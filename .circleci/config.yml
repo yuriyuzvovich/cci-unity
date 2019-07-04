@@ -10,10 +10,11 @@ jobs:
     steps:
       - checkout
       - run: mkdir -p /root/.cache/unity3d
+      - run: mkdir -p /root/caches
       - run: openssl aes-256-cbc -d -in .circleci/Unity_v2018.x.ulf-cipher -k 123 >> .circleci/Unity_v2018.x.ulf
-      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
+      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile -customBuildPath '/root/caches' .circleci/Unity_v2018.x.ulf || exit 0
       - store_artifacts:
-          path: /root/.cache/unity3d
+          path: /root/caches
           destination: artifacts
 workflows:
   version: 2
