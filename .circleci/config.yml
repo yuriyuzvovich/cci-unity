@@ -9,9 +9,10 @@ jobs:
     executor: unity
     steps:
       - checkout
+      - run: whoami
+      - run: mkdir -p /root/.cache/unity3d
       - run: openssl aes-256-cbc -d -in .circleci/Unity_v2018.x.ulf-cipher -k 123 >> .circleci/Unity_v2018.x.ulf
       - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
-      - run: whoami
       - store_artifacts:
           path: ./CISample
           destination: ./CISample
