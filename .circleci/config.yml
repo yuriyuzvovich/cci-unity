@@ -10,8 +10,9 @@ commands:
     steps:
       - run:
           name: Building Unity Project
-          #command: xvfb-run -a /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile /root/project/UnityBuildLog.log -customBuildPath /root/project/Build -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
-          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath /root/project/Build -customBuildTarget StandaloneWindows64 -customBuildName TestBuild -executeMethod BuildCommand.PerformBuild
+#          command: xvfb-run -a /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile /root/project/UnityBuildLog.log -customBuildPath /root/project/Build -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
+#          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath /root/project/Build -customBuildTarget StandaloneWindows64 -customBuildName TestBuild -executeMethod BuildCommand.PerformBuild
+          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -noUpm -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
           no_output_timeout: 60m
 
 environment:
@@ -33,7 +34,7 @@ jobs:
 #        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./caches -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
 #        no_output_timeout: 30m
       - store_artifacts:
-          path: Build
+          path: ./bin-win64
 workflows:
   version: 2
   build:
