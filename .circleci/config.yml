@@ -3,7 +3,7 @@ executors:
   unity:
     docker:
       # https://hub.docker.com/r/gableroux/unity3d/tags
-      - image: gableroux/unity3d:2018.2.21f1
+      - image: gableroux/unity3d:2018.2.3f1
 commands:
   unity-build:
     description: "Build Unity Project"
