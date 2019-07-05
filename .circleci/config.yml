@@ -11,7 +11,7 @@ commands:
       - run:
           name: Building Unity Project
           #command: xvfb-run -a /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile /root/project/UnityBuildLog.log -customBuildPath /root/project/Build -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
-          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath Build -customBuildTarget StandaloneWindows64 -customBuildName TestBuild -executeMethod BuildCommand.PerformBuild
+          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath root/project/Build -customBuildTarget StandaloneWindows64 -customBuildName TestBuild -executeMethod BuildCommand.PerformBuild
           no_output_timeout: 60m
 
 environment:
