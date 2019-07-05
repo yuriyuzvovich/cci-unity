@@ -4,6 +4,15 @@ executors:
     docker:
       # https://hub.docker.com/r/gableroux/unity3d/tags
       - image: gableroux/unity3d:2018.2.21f1
+commands:
+  unity-build:
+    description: "Build Unity Project"
+    steps:
+      - run:
+          name: Building Unity Project
+          command: xvfb-run -a /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile /root/project/UnityBuildLog.log -projectPath /root/project/ -customBuildPath ./Build -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
+          no_output_timeout: 60m
+
 environment:
       BUILD_NAME: ExampleProjectName
       BUILD_TARGET: StandaloneLinux64
@@ -14,9 +23,11 @@ jobs:
       - checkout
       - run: mkdir -p /root/.cache/unity3d
       - run: openssl aes-256-cbc -d -in .circleci/Unity_v2018.x.ulf-cipher -k 123 >> .circleci/Unity_v2018.x.ulf
-      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
-      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./caches -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
-        no_output_timeout: 60m
+      - unity-build
+#      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
+#      - run:
+#        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./caches -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
+#        no_output_timeout: 30m
       - store_artifacts:
           path: ./caches
 workflows:
