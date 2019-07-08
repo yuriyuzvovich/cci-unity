@@ -114,8 +114,9 @@ static class BuildCommand
 		var fixedBuildPath = GetFixedBuildPath (buildTarget, buildPath, buildName);
 		
 		if (buildTarget.ToString().ToLower().Contains("android")) {
-			PlayerSettings.applicationIdentifier = "com.yourcompany.testapp";
-			
+			//PlayerSettings.applicationIdentifier = "com.yourcompany.testapp";
+			PlayerSettings.SetApplicationIdentifier( BuildTargetGroup.Android, "com.android.example" );
+        		Console.WriteLine( PlayerSettings.GetApplicationIdentifier( BuildTargetGroup.Android ) );
 			//EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
 			//EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
 			//EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
