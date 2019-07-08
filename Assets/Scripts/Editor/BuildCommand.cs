@@ -107,14 +107,23 @@ static class BuildCommand
 		Console.WriteLine (":: Performing build");
 		//PlayerSettings.keystorePass = getEnv ("KEYSTORE_PASS", true);
 		//PlayerSettings.keyaliasPass = getEnv ("KEY_ALIAS_PASS", true);
-		//EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
-		//EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
-		//EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
+		
 		var buildTarget = GetBuildTarget ();
 		var buildPath = GetBuildPath ();
 		var buildName = GetBuildName ();
 		var fixedBuildPath = GetFixedBuildPath (buildTarget, buildPath, buildName);
-
+		
+		if (buildTarget.ToString().ToLower().Contains("android")) {
+			PlayerSettings.applicationIdentifier = "com.yourcompany.testapp";
+			
+			EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
+			EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
+			EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
+			
+			Console.WriteLine (getEnv ("ANDROID_SDK_HOME"));
+			Console.WriteLine (getEnv ("JAVA_HOME"));
+			Console.WriteLine (getEnv ("ANDROID_NDK_HOME"));
+		}
 		BuildPipeline.BuildPlayer (GetEnabledScenes (), fixedBuildPath, buildTarget, GetBuildOptions ());
 		Console.WriteLine (":: Done with build");
 	}
