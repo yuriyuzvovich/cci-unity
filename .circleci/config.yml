@@ -7,11 +7,15 @@ executors:
 commands:
   unity-build:
     description: "Build Unity Project"
+    parameters:
+      platform:
+        type: string
+        default: "StandaloneWindows64"
     steps:
       - run:
           name: Building Unity Project
+          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./bin-win64/ -customBuildTarget << parameters.platform >> -customBuildName CISample -executeMethod BuildCommand.PerformBuild
 #          command: xvfb-run -a /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile /root/project/UnityBuildLog.log -customBuildPath /root/project/Build -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
-          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./bin-win64/ -customBuildTarget StandaloneWindows64 -customBuildName CISample -executeMethod BuildCommand.PerformBuild
 #          command: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -noUpm -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
           no_output_timeout: 60m
 
@@ -28,7 +32,9 @@ jobs:
       - run: mkdir -p /root/.local/share/unity3d/Unity/
       - run: openssl aes-256-cbc -d -in .circleci/Unity_v2018.x.ulf-cipher -k 123 >> .circleci/Unity_v2018.x.ulf
       - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
-      - unity-build
+      - unity-build:
+          platform: "StandaloneWindows64"
+        
 #      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
 #      - run:
 #        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./caches -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
