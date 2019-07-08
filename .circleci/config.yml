@@ -6,7 +6,7 @@ executors:
       - image: gableroux/unity3d:2018.2.3f1
   unity-android:
     docker:
-      - image: gableroux/unity3d:2018.2.21f1-android 
+      - image: gableroux/unity3d:2018.2.3f1-android 
 commands:
   unity-build:
     description: "Build Unity Project"
