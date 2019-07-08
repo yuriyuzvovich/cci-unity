@@ -116,9 +116,13 @@ static class BuildCommand
 		if (buildTarget.ToString().ToLower().Contains("android")) {
 			PlayerSettings.applicationIdentifier = "com.yourcompany.testapp";
 			
-			EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
-			EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
-			EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
+			//EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
+			//EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
+			//EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
+			
+			//PlayerSettings.Android.keystorePass = "KEYSTORE_MASTER_PASSWORD_GOES_HERE";
+			//PlayerSettings.Android.keyaliasName = "testapp";
+			//PlayerSettings.Android.keyaliasPass = "KEY_PASSWORD_GOES_HERE";
 			
 			Console.WriteLine (getEnv ("ANDROID_SDK_HOME"));
 			Console.WriteLine (getEnv ("JAVA_HOME"));
