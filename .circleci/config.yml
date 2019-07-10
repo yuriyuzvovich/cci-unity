@@ -37,7 +37,7 @@ environment:
       BUILD_TARGET: StandaloneLinux64
 jobs:
   build-test:
-    executor: unity-android
+    executor: unity-ios
     steps:
       - checkout
       - run: mkdir -p /root/project/Build
