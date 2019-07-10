@@ -7,6 +7,10 @@ executors:
   unity-android:
     docker:
       - image: gableroux/unity3d:2018.2.3f1-android 
+  unity-ios:
+    docker:
+      - image: gableroux/unity3d:2018.2.3f1-ios
+
 commands:
   unity-build:
     description: "Build Unity Project"
@@ -41,16 +45,20 @@ jobs:
       - run: mkdir -p /root/.local/share/unity3d/Unity/
       - run: openssl aes-256-cbc -d -in .circleci/Unity_v2018.x.ulf-cipher -k 123 >> .circleci/Unity_v2018.x.ulf
       - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
+#      - unity-build:
+#          platform: "Android"
+#          buildPath: "./bin-android/"
+#          buildName: "sample.apk"
       - unity-build:
-          platform: "Android"
-          buildPath: "./bin-android/"
-          buildName: "ci-android.apk"
+          platform: "iOS"
+          buildPath: "./bin-ios/"
+          buildName: "sample.ipa"
 #      - run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .circleci/Unity_v2018.x.ulf || exit 0
 #      - run:
 #        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -customBuildPath ./caches -customBuildTarget StandaloneWindows64 -executeMethod BuildCommand.PerformBuild
 #        no_output_timeout: 30m
       - store_artifacts:
-          path: ./bin-android
+          path: ./bi-ios
 workflows:
   version: 2
   build:
